@@ -232,7 +232,7 @@ const generateRoutine = async (req, res) => {
           }
         );
         const raw = response.data.choices[0].message.content;
-        
+
         console.log("RAW IA:", raw);
 
         const limpio = limpiarTexto(raw);
@@ -246,6 +246,8 @@ const generateRoutine = async (req, res) => {
 
       } catch (err) {
         console.log("❌ error en petición:", err.message);
+        // ✅ Agrega esta línea:
+        console.log("❌ detalle:", JSON.stringify(err.response?.data));
       }
     }
 
