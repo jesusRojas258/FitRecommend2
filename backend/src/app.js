@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/global.routes"));
-app.use("/api", require("./routes/chat.routes"));
+app.use("/", require("./routes/chat.routes"));
 
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
