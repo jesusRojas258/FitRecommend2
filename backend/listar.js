@@ -13,6 +13,6 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
     const count = await db.collection(col.name).countDocuments();
     console.log(`   ${col.name}: ${count} documentos`);
   }
-
+//
   process.exit(0);
 });
