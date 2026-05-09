@@ -11,9 +11,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// ✅ Sintaxis compatible con path-to-regexp v8
-app.options("/(.*)", cors(corsOptions));
+// ❌ Borra el app.options(...) — no lo necesitas
 
 app.use(express.json());
 
