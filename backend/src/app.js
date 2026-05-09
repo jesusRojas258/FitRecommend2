@@ -3,20 +3,25 @@ const cors = require("cors");
 
 const app = express();
 
-// 1. CORS PRIMERO (obligatorio)
-app.use(cors());
+// CORS primero
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://fit-recommend2.vercel.app"
+  ]
+}));
 
-// 2. JSON
+// JSON
 app.use(express.json());
 
-// 3. OPTIONS global (IMPORTANTE)
-app.options("*", cors());
+// ❌ NO app.options("*")
 
-// 4. rutas después
+// rutas normales
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/global.routes"));
 app.use("/api", require("./routes/chat.routes"));
 
+// health check
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
