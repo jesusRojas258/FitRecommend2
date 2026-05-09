@@ -32,4 +32,8 @@ app.use("/api", chatRoutes);
 
 app.use("/api/auth", authRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Backend funcionando");
+});
+
 module.exports = app;
