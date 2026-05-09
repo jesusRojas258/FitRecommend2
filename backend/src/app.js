@@ -11,14 +11,12 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS SIMPLE primero
-app.use(cors({
-  origin: "*"
-}));
+app.use(cors());
+
+app.options("*", cors());
 
 app.use(express.json());
 
-// Rutas
 const chatRoutes = require("./routes/chat.routes");
 const globalRoutes = require("./routes/global.routes");
 const authRoutes = require("./routes/auth.routes");
@@ -27,7 +25,6 @@ app.use("/api", globalRoutes);
 app.use("/api", chatRoutes);
 app.use("/api/auth", authRoutes);
 
-// Ruta raíz
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
