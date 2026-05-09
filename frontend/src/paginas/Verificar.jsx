@@ -13,7 +13,7 @@ function Verificar() {
     if (ejecutado.current) return;
     ejecutado.current = true;
 
-    fetch(`http://localhost:3000/api/auth/verificar/${token}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/auth/verificar/${token}`)
       .then(r => r.json())
       .then(data => setEstado(data.ok ? "ok" : "error"))
       .catch(() => setEstado("error"));

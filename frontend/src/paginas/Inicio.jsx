@@ -22,7 +22,7 @@ function Inicio() {
   })();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/globales")
+    fetch(`${import.meta.env.VITE_API_URL}/api/globales`)
       .then(r => r.json())
       .then(data => setRutinas(data.rutinas || []))
       .catch(() => setError(true))
