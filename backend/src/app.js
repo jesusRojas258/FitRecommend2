@@ -15,7 +15,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://fit-recommend2-aa1rfbeyl-jesusrojas258s-projects.vercel.app"
+    "https://fit-recommend2.vercel.app"
   ]
 }))
 
