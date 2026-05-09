@@ -13,8 +13,11 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173"
-}));
+  origin: [
+    "http://localhost:5173",
+    "https://fit-recommend2-aa1rfbeyl-jesusrojas258s-projects.vercel.app"
+  ]
+}))
 
 app.use(express.json());
 
