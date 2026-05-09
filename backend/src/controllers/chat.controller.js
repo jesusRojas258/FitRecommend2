@@ -218,13 +218,20 @@ const generateRoutine = async (req, res) => {
       try {
 
         const response = await axios.post(
-          "http://localhost:11434/api/generate",
+          "https://api.groq.com/openai/v1/chat/completions",
           {
-            model: "llama3",
-            prompt,
-            stream: false
+            model: "llama3-8b-8192",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7
+          },
+          {
+            headers: {
+              "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+              "Content-Type": "application/json"
+            }
           }
         );
+const raw = response.data.choices[0].message.content;
 
         const raw = response.data.response;
         console.log("RAW IA:", raw);
