@@ -4,9 +4,17 @@ const cors = require("cors");
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: function (origin, callback) {
+    // Permite cualquier subdominio de vercel.app o sin origin (Postman, etc.)
+    if (!origin || origin.endsWith(".vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
