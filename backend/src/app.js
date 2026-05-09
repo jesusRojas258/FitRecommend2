@@ -9,10 +9,7 @@ const cors = require("cors");
 const app = express();
 
 /**
- * CORS estable (sin crashes en Railway)
- * - permite localhost
- * - permite vercel principal
- * - permite previews vercel
+ * CORS estable
  */
 app.use(cors({
   origin: (origin, callback) => {
@@ -36,14 +33,12 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// IMPORTANTE: manejar preflight correctamente
-app.options("*", cors());
+// ❌ ELIMINADO: app.options("*", cors())
 
 app.use(express.json());
 
 /**
  * RUTAS
- * IMPORTANTE: sin wildcards ni "*"
  */
 const chatRoutes = require("./routes/chat.routes");
 const globalRoutes = require("./routes/global.routes");
@@ -53,9 +48,6 @@ app.use("/api", globalRoutes);
 app.use("/api", chatRoutes);
 app.use("/api/auth", authRoutes);
 
-/**
- * health check
- */
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
