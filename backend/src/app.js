@@ -11,40 +11,14 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://fit-recommend2.vercel.app"
-];
-
+// CORS SIMPLE primero
 app.use(cors({
-  origin: (origin, callback) => {
-
-    // Permitir requests sin origin
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    // Permitir dominio principal
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    // Permitir previews Vercel
-    if (
-      typeof origin === "string" &&
-      origin.includes(".vercel.app")
-    ) {
-      return callback(null, true);
-    }
-
-    return callback(new Error("No permitido por CORS"));
-  },
-
-  credentials: true
+  origin: "*"
 }));
 
 app.use(express.json());
 
+// Rutas
 const chatRoutes = require("./routes/chat.routes");
 const globalRoutes = require("./routes/global.routes");
 const authRoutes = require("./routes/auth.routes");
@@ -53,6 +27,7 @@ app.use("/api", globalRoutes);
 app.use("/api", chatRoutes);
 app.use("/api/auth", authRoutes);
 
+// Ruta raíz
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
