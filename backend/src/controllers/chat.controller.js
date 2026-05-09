@@ -231,9 +231,8 @@ const generateRoutine = async (req, res) => {
             }
           }
         );
-const raw = response.data.choices[0].message.content;
-
-        const raw = response.data.response;
+        const raw = response.data.choices[0].message.content;
+        
         console.log("RAW IA:", raw);
 
         const limpio = limpiarTexto(raw);
