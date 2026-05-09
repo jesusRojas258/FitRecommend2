@@ -53,7 +53,7 @@ function Login() {
     setErrores({});
     setForm({ username: "", correo: "", password: "" });
   };
-
+//s
   const handleLogin = async () => {
     if (!form.correo || !form.password) {
       setError("Todos los campos son obligatorios");
