@@ -8,48 +8,30 @@ const cors = require("cors");
 
 const app = express();
 
-/**
- * CORS estable
- */
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-
-    const allowed = [
-      "http://localhost:5173",
-      "https://fit-recommend2.vercel.app"
-    ];
-
-    if (
-      allowed.includes(origin) ||
-      origin.endsWith(".vercel.app")
-    ) {
-      return callback(null, true);
-    }
-
-    return callback(null, false);
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-// ❌ ELIMINADO: app.options("*", cors())
-
+// JSON primero
 app.use(express.json());
 
-/**
- * RUTAS
- */
-const chatRoutes = require("./routes/chat.routes");
-const globalRoutes = require("./routes/global.routes");
-const authRoutes = require("./routes/auth.routes");
+// CORS GLOBAL SIMPLE (sin lógica)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+}));
 
-app.use("/api", globalRoutes);
-app.use("/api", chatRoutes);
-app.use("/api/auth", authRoutes);
+// forzar preflight
+app.options("*", cors());
 
+// health check
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
+
+// rutas DESPUÉS
+try {
+  app.use("/api", require("./routes/global.routes"));
+  app.use("/api", require("./routes/chat.routes"));
+  app.use("/api/auth", require("./routes/auth.routes"));
+} catch (e) {
+  console.error("Route import error:", e);
+}
 
 module.exports = app;
