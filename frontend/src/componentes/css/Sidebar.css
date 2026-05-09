@@ -1,0 +1,296 @@
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  min-height: 100%;
+  background: #1E293B;
+  border-right: 1px solid #1E3A5F;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  gap: 6px;
+}
+
+/* SECCIÓN */
+.sidebar-seccion {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  margin: 6px 0 2px;
+}
+
+/* DIVIDER */
+.sidebar-divider {
+  height: 1px;
+  background: #1E3A5F;
+  margin: 6px 0;
+}
+
+/* SPACER — empuja logout al fondo */
+.sidebar-spacer {
+  flex: 1;
+}
+
+/* BOTONES NAV */
+.sidebar-btn {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.sidebar-btn:hover {
+  background: #0F172A;
+  color: #F8FAFC;
+}
+
+.sidebar-btn.active {
+  background: #0F1F3D;
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+.sidebar-btn.danger       { color: #F87171; }
+.sidebar-btn.danger:hover {
+  background: #1F0F0F;
+  color: #FCA5A5;
+}
+
+.sidebar-btn-icon  { font-size: 16px; flex-shrink: 0; }
+.sidebar-btn-label { flex: 1; }
+
+/* PUNTO ACTIVO */
+.sidebar-btn-dot {
+  width: 6px;
+  height: 6px;
+  background: #3B82F6;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* TARJETA PERFIL */
+.sidebar-perfil-card {
+  background: #0F172A;
+  border: 1px solid #1E3A5F;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-perfil-card:hover {
+  border-color: #3B82F6;
+  background: #0F1F3D;
+}
+
+.sidebar-perfil-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: #1D3B6E;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #60A5FA;
+  flex-shrink: 0;
+}
+
+.sidebar-perfil-avatar-vacio {
+  background: #1E293B;
+  border: 1px dashed #334155;
+  color: #475569;
+}
+
+.sidebar-perfil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.sidebar-perfil-nombre {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-perfil-nivel {
+  font-size: 11px;
+  color: #60A5FA;
+  text-transform: capitalize;
+}
+
+.sidebar-perfil-objetivo {
+  font-size: 11px;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-perfil-completar {
+  font-size: 11px;
+  color: #3B82F6;
+}
+
+.sidebar-perfil-edit {
+  font-size: 12px;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+/* USUARIO */
+.sidebar-usuario {
+  padding: 4px 10px 8px;
+}
+
+.sidebar-usuario-email {
+  font-size: 11px;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* MODAL PERFIL */
+.perfil-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.perfil-modal-card {
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 32px;
+  width: 480px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modal-entrada 0.3s ease;
+}
+
+@keyframes modal-entrada {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+.perfil-modal-card::-webkit-scrollbar       { width: 5px; }
+.perfil-modal-card::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 10px; }
+
+.perfil-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #0F172A;
+  border: 1px solid #334155;
+  color: #475569;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-modal-close:hover {
+  background: #1E293B;
+  color: #F8FAFC;
+  border-color: #3B82F6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    min-height: unset;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid #1E3A5F;
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .sidebar-seccion,
+  .sidebar-spacer,
+  .sidebar-usuario,
+  .sidebar-perfil-objetivo,
+  .sidebar-perfil-nivel,
+  .sidebar-btn-label { display: none; }
+
+  .sidebar-perfil-card {
+    flex: 1;
+    min-width: 44px;
+    max-width: 44px;
+    padding: 8px;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .sidebar-perfil-info,
+  .sidebar-perfil-edit { display: none; }
+
+  .sidebar-btn {
+    padding: 8px;
+    border-radius: 8px;
+    justify-content: center;
+    flex: none;
+  }
+
+  .sidebar-btn-icon { font-size: 18px; }
+  .sidebar-btn-dot  { display: none; }
+  .sidebar-divider  { display: none; }
+}
+.sidebar-btn-logout {
+  font-size: 13px;
+  padding: 8px 12px;
+  opacity: 0.8;
+}
+
+.sidebar-btn-logout:hover {
+  opacity: 1;
+}

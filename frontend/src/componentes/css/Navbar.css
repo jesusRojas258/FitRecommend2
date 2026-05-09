@@ -1,0 +1,133 @@
+.navbar {
+  background: #1E293B;
+  border-bottom: 1px solid #1E3A5F;
+  padding: 0 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+}
+
+/* LOGO */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  text-decoration: none;
+}
+
+.navbar-logo:hover { opacity: 0.8; }
+
+.navbar-logo-icono {
+  font-size: 22px;
+}
+
+.navbar-logo-texto {
+  font-size: 18px;
+  font-weight: 800;
+  color: #3B82F6;
+  letter-spacing: -0.5px;
+}
+
+/* LADO DERECHO */
+.navbar-derecha {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* PERFIL */
+.navbar-perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-avatar {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #1D3B6E, #2563EB);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #F8FAFC;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px #334155;
+}
+
+.navbar-perfil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.navbar-username {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F8FAFC;
+  line-height: 1;
+}
+
+.navbar-correo {
+  font-size: 11px;
+  color: #475569;
+  line-height: 1;
+}
+
+/* SEPARADOR */
+.navbar-separador {
+  width: 1px;
+  height: 28px;
+  background: #334155;
+}
+
+/* LOGOUT */
+.navbar-logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #334155;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar-logout-icono { font-size: 14px; }
+
+.navbar-logout:hover {
+  background: #1F0F0F;
+  border-color: #F87171;
+  color: #F87171;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .navbar { padding: 0 16px; }
+
+  .navbar-perfil-info { display: none; }
+
+  .navbar-logout span:last-child { display: none; }
+
+  .navbar-logout {
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+}
