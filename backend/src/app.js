@@ -22,3 +22,5 @@ app.use("/api", require("./routes/chat.routes"));
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
+
+module.exports = app;
