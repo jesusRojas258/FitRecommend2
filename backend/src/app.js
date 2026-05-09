@@ -1,37 +1,24 @@
-/**
- * @file: app.js
- * @project: FitRecommend
- */
-
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 
-// JSON primero
+// 1. CORS PRIMERO (obligatorio)
+app.use(cors());
+
+// 2. JSON
 app.use(express.json());
 
-// CORS GLOBAL SIMPLE (sin lógica)
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-}));
-
-// forzar preflight
+// 3. OPTIONS global (IMPORTANTE)
 app.options("*", cors());
 
-// health check
+// 4. rutas después
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api", require("./routes/global.routes"));
+app.use("/api", require("./routes/chat.routes"));
+
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
-
-// rutas DESPUÉS
-try {
-  app.use("/api", require("./routes/global.routes"));
-  app.use("/api", require("./routes/chat.routes"));
-  app.use("/api/auth", require("./routes/auth.routes"));
-} catch (e) {
-  console.error("Route import error:", e);
-}
 
 module.exports = app;
