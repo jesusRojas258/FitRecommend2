@@ -3,25 +3,30 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS primero
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://fit-recommend2.vercel.app"
-  ]
-}));
+/**
+ * 🔥 CORS GLOBAL FORZADO
+ */
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-// JSON
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
 app.use(express.json());
 
-// ❌ NO app.options("*")
-
-// rutas normales
+/**
+ * RUTAS
+ */
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/global.routes"));
 app.use("/api", require("./routes/chat.routes"));
 
-// health check
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
