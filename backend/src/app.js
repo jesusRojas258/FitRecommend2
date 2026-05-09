@@ -3,26 +3,22 @@ const cors = require("cors");
 
 const app = express();
 
-/**
- * 🔥 CORS GLOBAL FORZADO
- */
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+// ✅ Usa el paquete cors CON opciones explícitas
+const corsOptions = {
+  origin: "*", // o pon tu dominio de Vercel específico
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200, // importante para preflight
+};
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
+app.use(cors(corsOptions));
 
-  next();
-});
+// ✅ Maneja preflight de forma explícita para TODAS las rutas
+app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
-/**
- * RUTAS
- */
+// RUTAS
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/global.routes"));
 app.use("/api", require("./routes/chat.routes"));
@@ -30,5 +26,3 @@ app.use("/api", require("./routes/chat.routes"));
 app.get("/", (req, res) => {
   res.send("Backend funcionando");
 });
-
-module.exports = app;
