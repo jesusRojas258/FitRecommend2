@@ -11,9 +11,8 @@ const cors = require("cors");
 
 const app = express();
 
+// CORS simple y estable
 app.use(cors());
-
-app.options("*", cors());
 
 app.use(express.json());
 
