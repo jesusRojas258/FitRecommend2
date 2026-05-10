@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || "https://cooperative-sparkle-production-66b0.up.railway.app/api";
+const BASE = "https://cooperative-sparkle-production-66b0.up.railway.app/api";
 
 console.log("BASE URL:", BASE); // ✅ agrega esto
 
