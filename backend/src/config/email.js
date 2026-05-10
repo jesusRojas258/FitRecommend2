@@ -10,7 +10,18 @@ const transporter = nodemailer.createTransport({
 
 const enviarVerificacion = async (correo, username, token) => {
   const url = `${process.env.CLIENT_URL}/verificar/${token}`;
-
+  try {
+    await transporter.sendMail({
+      from: `"FitRecommend" <${process.env.EMAIL_USER}>`,
+      to: correo,
+      subject: "Verifica tu cuenta en FitRecommend",
+      html: `...`
+    });
+    console.log("✅ correo enviado a:", correo);
+  } catch (err) {
+    console.error("❌ error nodemailer:", err.message); // ✅ agrega esto
+    throw err;
+  }
   await transporter.sendMail({
     from: `"FitRecommend" <${process.env.EMAIL_USER}>`,
     to: correo,
