@@ -23,6 +23,11 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/global.routes"));
 app.use("/api", require("./routes/chat.routes"));
