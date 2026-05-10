@@ -1,5 +1,7 @@
 const BASE = import.meta.env.VITE_API_URL || "https://cooperative-sparkle-production-66b0.up.railway.app/api";
 
+console.log("BASE URL:", BASE); // ✅ agrega esto
+
 export const apiFetch = (url, options = {}) => {
   const token = localStorage.getItem("token");
   return fetch(`${BASE}${url}`, {
