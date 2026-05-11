@@ -1,31 +1,12 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const enviarVerificacion = async (correo, username, token) => {
   const url = `${process.env.CLIENT_URL}/verificar/${token}`;
-  try {
-    await transporter.sendMail({
-      from: `"FitRecommend" <${process.env.EMAIL_USER}>`,
-      to: correo,
-      subject: "Verifica tu cuenta en FitRecommend",
-      html: `...`
-    });
-    console.log("✅ correo enviado a:", correo);
-  } catch (err) {
-    console.error("❌ error nodemailer:", err.message); // ✅ agrega esto
-    throw err;
-  }
-  await transporter.sendMail({
-    from: `"FitRecommend" <${process.env.EMAIL_USER}>`,
+
+  await resend.emails.send({
+    from: "FitRecommend <onboarding@resend.dev>",
     to: correo,
     subject: "Verifica tu cuenta en FitRecommend",
     html: `
