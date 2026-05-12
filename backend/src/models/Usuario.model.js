@@ -20,7 +20,7 @@ const usuarioSchema = new mongoose.Schema({
   },
   verificado: {
     type: Boolean,
-    default: false
+    default: true
   },
   tokenVerificacion: {
     type: String
