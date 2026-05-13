@@ -13,6 +13,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
+    localStorage.removeItem("perfil");
     localStorage.removeItem("rutinaCalendario");
     localStorage.removeItem("rutinaGenerada");
     navigate("/login");

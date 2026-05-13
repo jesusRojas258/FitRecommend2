@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/Auth.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-
 function Login() {
 
   const navigate = useNavigate();
@@ -15,10 +13,10 @@ function Login() {
     password: ""
   });
 
-  const [loading, setLoading]           = useState(false);
-  const [error, setError]               = useState("");
-  const [mostrarPass, setMostrarPass]   = useState(false);
-  const [errores, setErrores]           = useState({});
+  const [loading, setLoading]       = useState(false);
+  const [error, setError]           = useState("");
+  const [mostrarPass, setMostrarPass] = useState(false);
+  const [errores, setErrores]       = useState({});
 
   const validarCampo = (name, value) => {
     const nuevosErrores = { ...errores };
@@ -55,22 +53,7 @@ function Login() {
     setErrores({});
     setForm({ username: "", correo: "", password: "" });
   };
-
-  // Carga el perfil desde BD y lo sincroniza en localStorage
-  const cargarPerfil = async (token) => {
-    try {
-      const res  = await fetch(`${API}/auth/perfil`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.perfil) {
-        localStorage.setItem("perfil", JSON.stringify(data.perfil));
-      }
-    } catch {
-      // No es crítico — el perfil se cargará al abrir Perfil
-    }
-  };
-
+//s
   const handleLogin = async () => {
     if (!form.correo || !form.password) {
       setError("Todos los campos son obligatorios");
@@ -80,7 +63,7 @@ function Login() {
 
     setLoading(true);
     try {
-      const res  = await fetch(`${API}/auth/login`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify({ correo: form.correo, password: form.password })
@@ -90,10 +73,6 @@ function Login() {
 
       localStorage.setItem("token",   data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
-
-      // ✅ Carga el perfil desde BD antes de redirigir
-      await cargarPerfil(data.token);
-
       navigate("/");
 
     } catch {
@@ -112,7 +91,7 @@ function Login() {
 
     setLoading(true);
     try {
-      const res  = await fetch(`${API}/auth/registro`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/registro`, {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(form)
@@ -140,9 +119,13 @@ function Login() {
         <div className="auth-card auth-card-exito">
           <div className="auth-exito-icono">📧</div>
           <h2>¡Revisa tu correo!</h2>
-          <p className="auth-sub">Enviamos un enlace de verificación a</p>
+          <p className="auth-sub">
+            Enviamos un enlace de verificación a
+          </p>
           <span className="auth-correo-destacado">{form.correo}</span>
-          <p className="auth-sub">Haz clic en el enlace para activar tu cuenta.</p>
+          <p className="auth-sub">
+            Haz clic en el enlace para activar tu cuenta.
+          </p>
           <div className="auth-exito-pasos">
             <div className="auth-paso">
               <span className="auth-paso-num">1</span>
@@ -168,6 +151,7 @@ function Login() {
   return (
     <div className="auth-bg">
 
+      {/* FONDO DECORATIVO */}
       <div className="auth-decoracion">
         <div className="auth-circulo auth-circulo-1" />
         <div className="auth-circulo auth-circulo-2" />
@@ -175,14 +159,18 @@ function Login() {
 
       <div className="auth-card">
 
+        {/* LOGO */}
         <div className="auth-logo-wrap">
           <span className="auth-logo-icono">💪</span>
           <h1 className="auth-logo">FitRecommend</h1>
           <p className="auth-logo-sub">
-            {modo === "login" ? "Bienvenido de vuelta" : "Crea tu cuenta gratis"}
+            {modo === "login"
+              ? "Bienvenido de vuelta"
+              : "Crea tu cuenta gratis"}
           </p>
         </div>
 
+        {/* TABS */}
         <div className="auth-tabs">
           <button
             className={`auth-tab ${modo === "login" ? "active" : ""}`}
@@ -198,6 +186,7 @@ function Login() {
           </button>
         </div>
 
+        {/* FORMULARIO */}
         <div className="auth-form" onKeyDown={handleKeyDown}>
 
           {modo === "registro" && (
@@ -265,7 +254,7 @@ function Login() {
                   form.password.length >= 6  ? "media"  : "debil"
                 }`} />
                 <span className="auth-pass-label">
-                  {form.password.length >= 10 ? "Contraseña fuerte"    :
+                  {form.password.length >= 10 ? "Contraseña fuerte" :
                    form.password.length >= 6  ? "Contraseña aceptable" :
                    "Contraseña débil"}
                 </span>
@@ -284,13 +273,15 @@ function Login() {
             onClick={modo === "login" ? handleLogin : handleRegistro}
             disabled={loading || Object.keys(errores).length > 0}
           >
-            {loading
-              ? <span className="auth-spinner" />
-              : modo === "login" ? "Iniciar sesión" : "Crear cuenta"}
+            {loading ? (
+              <span className="auth-spinner" />
+            ) : modo === "login" ? "Iniciar sesión" : "Crear cuenta"}
           </button>
 
           <p className="auth-switch">
-            {modo === "login" ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
+            {modo === "login"
+              ? "¿No tienes cuenta?"
+              : "¿Ya tienes cuenta?"}
             <button
               className="auth-switch-btn"
               onClick={() => handleModo(modo === "login" ? "registro" : "login")}
