@@ -131,4 +131,40 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { registro, verificarCorreo, login };
+const Perfil = require("../models/Perfil.model");
+
+// Guardar o actualizar perfil
+const guardarPerfil = async (req, res) => {
+  try {
+    const { nombre, edad, peso, altura, objetivo, nivel, dias, lesiones, fechaInicio } = req.body;
+
+    const perfil = await Perfil.findOneAndUpdate(
+      { usuarioId: req.usuario.id },
+      {
+        usuarioId: req.usuario.id,
+        nombre, edad, peso, altura,
+        objetivo, nivel, dias, lesiones, fechaInicio,
+        actualizadoEn: new Date()
+      },
+      { upsert: true, new: true }
+    );
+
+    return res.json({ ok: true, perfil });
+  } catch (error) {
+    console.error("❌ error guardando perfil:", error.message);
+    return res.status(500).json({ error: "Error interno" });
+  }
+};
+
+// Obtener perfil del usuario
+const obtenerPerfil = async (req, res) => {
+  try {
+    const perfil = await Perfil.findOne({ usuarioId: req.usuario.id });
+    return res.json({ perfil: perfil || null });
+  } catch (error) {
+    console.error("❌ error obteniendo perfil:", error.message);
+    return res.status(500).json({ error: "Error interno" });
+  }
+};
+
+module.exports = { registro, verificarCorreo, login, guardarPerfil, obtenerPerfil };
